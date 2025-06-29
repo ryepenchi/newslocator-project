@@ -1,0 +1,18 @@
+# Use the official Python image  
+FROM python:3.13-alpine
+  
+# Set the working directory in the container  
+WORKDIR /app  
+  
+# Install build dependencies
+  
+ADD nl_ingest/ /app/nl_ingest
+COPY config.py nl_ingest/requirements.txt /app/
+
+RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
+# RUN --mount=type=cache,target=/usr/local/lib/python3.13/site-packages/en_core_web_md python -m spacy download en_core_web_md
+RUN pip download https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.8.0/en_core_web_md-3.8.0.tar.gz
+RUN pip install en_core_web_md-3.8.0.tar.gz
+
+WORKDIR /app/nl_ingest
+CMD ["python", "rss_scraper_en.py", "--all"]

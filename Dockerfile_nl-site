@@ -1,0 +1,16 @@
+# Use the official Python image  
+FROM python:3.13-alpine
+  
+# Set the working directory in the container  
+WORKDIR /app  
+  
+# Install build dependencies
+  
+ADD nl_site/ /app/nl_site
+COPY config.py wsgi.py nl_site/requirements.txt /app/
+
+RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
+
+EXPOSE 8080
+
+CMD ["waitress-serve", "--call", "nl_site:create_app"]

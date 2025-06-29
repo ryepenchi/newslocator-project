@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Newslocator</title>
+    <meta name="description" content="Newslocator App">
+    <meta name="author" content="ryepenchi">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+      
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.1.0/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+
+</head>
+<body>
+
+    <div id='map'></div>
+    <!-- Infomenu -->
+    <div id="infomenu" class="nav infonav expanded">
+        <div class="titleheader">
+            <div class="row">
+                <div class="col s10 m10 l10">
+                    <span class='white-text'><h4>Welcome to Newslocator!</h4></span>
+                </div>
+                <div class="col s2 m2 l2 right-align">
+                    <a href="#" id= "close" class="close" onClick="closeMenu('infomenu')">
+                        <i class="material-icons close">highlight_off</i>
+                    </a>        
+                </div>
+            </div>
+        </div>
+        <div id="info-content">
+            <div class="card grey darken-2">
+                <div class="card-content white-text">
+                    <p>Discover recent news articles by location! </p><p>You can choose the time span you're interested in through the time-naviagation menu  <i class="material-icons">query_builder</i></p>
+                    <p>You can view all the articles from currently visible locations through the list view <i class="material-icons">view_list</i></p>
+                    <p>Click on the markers <i><img src="{{url_for('static', filename='img/newsicon.svg')}}"/></i> to see the related articles. </p>
+                </div>
+            </div>
+        </div>    
+    </div>
+    <!-- Filtermenu -->
+    <div id="filtermenu" class="nav filternav">
+        <div class="titleheader">
+            <div class='row'>
+                <div class='col s10'><h5 class='white-text'>Change timespan:</h5></div>
+                <div class='col s2 right-align'>
+                    <a href="#" class="close" onClick="closeMenu('filtermenu')">
+                        <i class="material-icons close">highlight_off</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class='row center-align'>
+            <h2 id="dates"></h2>
+        </div>
+        <div class="row center-align">
+            <a id="today" class="btn">Today</a>
+        </div>
+        <div class="row center-align">
+            <a id="m1d"><i class="material-icons filter-icon">arrow_left</i></a>
+            <span>Day</span>
+            <a id="p1d"><i class="material-icons filter-icon">arrow_right</i></a>
+        </div>
+        <div class="row center-align">
+            <a id="m1w"><i class="material-icons filter-icon">fast_rewind</i></a>
+            <span>Week</span>
+            <a id="p1w"><i class="material-icons filter-icon">fast_forward</i></a>
+        </div>
+    </div>
+
+    <!-- Article Menu -->
+    <div id="articlemenu" class="nav articlenav">
+        <div class='row'>
+            <div class="titleheader">
+                <div class='col s10'><h5 class='white-text'>Article list:</h5></div>
+                <div class='col s2 right-align'>
+                    <div id="rightcontrols">
+                        <a href="#" class="close" onClick="closeMenu('articlemenu')">
+                            <i class="material-icons close">highlight_off</i>
+                        </a>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="card-collection"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.1.0/dist/leaflet.markercluster.js"></script>
+    <script src="{{url_for('static', filename='/js/vendor/leaflet/Leaflet.Control.Custom.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    <script type="text/javascript">
+        window.appConfig = {
+            MAPBOX_TOKEN: "{{ mapboxtoken }}"
+        }
+    </script>
+</body>
+</html>
